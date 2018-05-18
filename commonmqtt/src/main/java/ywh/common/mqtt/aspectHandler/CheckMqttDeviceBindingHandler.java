@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import ywh.common.mqtt.annotation.CheckMqttDeviceBinding;
+import ywh.common.util.exception.ExceptionEnum;
+import ywh.common.util.response.ResultUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -49,6 +51,10 @@ public class CheckMqttDeviceBindingHandler {
         String userName = principal.getName();
 
         LOGGER.info("deviceSn: "+ deviceSn + " userName: " + userName );
-        return joinPoint.proceed();
+        if(userName.equals("dave") && deviceSn.equals("123456789")){
+            return joinPoint.proceed();
+        }
+        return ResultUtil.error(ExceptionEnum.DEVICE_NO_BIND);
+
     }
 }

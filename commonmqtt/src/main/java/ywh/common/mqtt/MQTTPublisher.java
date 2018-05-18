@@ -8,11 +8,11 @@ public interface MQTTPublisher {
      * @param topic
      * @param message
      */
-    public void publishMessage(String topic, String message);
+     void publishMessage(String topic, String message);
 
     /**
      * Disconnect MQTT Client
      */
-    public void disconnect();
+     void disconnect();
 
 }

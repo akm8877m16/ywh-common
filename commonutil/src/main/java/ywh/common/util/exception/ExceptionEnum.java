@@ -6,6 +6,7 @@ package ywh.common.util.exception;
 public enum ExceptionEnum {
     UNKNOW_ERROR(-1,"未知错误"),
     USER_NOT_FIND(-101,"用户不存在"),
+    DEVICE_NO_BIND(-102,"非所属用户设备")
     ;
 
     private Integer code;

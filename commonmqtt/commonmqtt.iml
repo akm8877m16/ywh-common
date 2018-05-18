@@ -11,9 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-security:unknown" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:1.5.10.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:1.5.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:1.5.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:1.5.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.5.10.RELEASE" level="project" />
@@ -28,6 +26,14 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.yaml:snakeyaml:1.17" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.3.14.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.3.14.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:4.2.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:4.2.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.14.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:4.2.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.14.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2" level="project" />
+    <orderEntry type="module" module-name="commonutil" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:1.5.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.13" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:1.5.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:1.5.10.RELEASE" level="project" />
@@ -43,8 +49,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.10" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:4.3.14.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.14.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.3.14.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.14.RELEASE" level="project" />
   </component>
 </module>

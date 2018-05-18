@@ -9,12 +9,12 @@ public interface  MqttConfig {
      * @param port
      * @param withUserNamePass
      */
-    public void config(String broker, Integer port, Boolean withUserNamePass);
+     void config(String broker, Integer port, Boolean withUserNamePass);
 
     /**
      * Default Configuration
      */
-    public  void config();
+      void config();
 
 
 }
