@@ -8,10 +8,14 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import ywh.common.entity.Device;
+import ywh.common.entity.User;
 import ywh.common.mqtt.annotation.CheckMqttDeviceBinding;
+import ywh.common.repository.UserRepository;
 import ywh.common.util.exception.ExceptionEnum;
 import ywh.common.util.response.ResultUtil;
 
@@ -22,6 +26,9 @@ import java.security.Principal;
 public class CheckMqttDeviceBindingHandler {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(CheckMqttDeviceBindingHandler.class);
+
+    @Autowired
+    UserRepository userRepository;
 
     @Before("@annotation(checkMqttDeviceBinding)")
     public void doBefore(JoinPoint joinPoint,CheckMqttDeviceBinding checkMqttDeviceBinding){
@@ -51,10 +58,11 @@ public class CheckMqttDeviceBindingHandler {
         String userName = principal.getName();
 
         LOGGER.info("deviceSn: "+ deviceSn + " userName: " + userName );
-        if(userName.equals("dave") && deviceSn.equals("123456789")){
+        User user = userRepository.findByUsername(userName);
+        Device device = new Device(deviceSn);
+        if(user.isDeviceExist(device)){
             return joinPoint.proceed();
         }
         return ResultUtil.error(ExceptionEnum.DEVICE_NO_BIND);
-
     }
 }

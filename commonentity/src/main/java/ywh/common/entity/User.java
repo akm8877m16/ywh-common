@@ -40,6 +40,10 @@ public class User implements Serializable {
     @JsonManagedReference
     private Set<UserRole> userRoles=new HashSet<UserRole>(0);
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Set<Device> userDevices = new HashSet<Device>(0);
+
     public User(){}
 
     public User(String username, String password){
@@ -62,6 +66,11 @@ public class User implements Serializable {
     public void addRole(UserRole userRole){
         userRole.setUser(this);
         userRoles.add(userRole);
+    }
+
+    public void addDevice(Device device){
+        device.setUser(this);
+        userDevices.add(device);
     }
 
     public long getId() {
@@ -107,6 +116,15 @@ public class User implements Serializable {
     public Boolean isRoleExist(RoleBean roleBean){
         for(UserRole userRole : userRoles){
             if(userRole.getAuthority().equals(roleBean.getRole()) && username.equals(roleBean.getUsername())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean isDeviceExist(Device device){
+        for(Device device1 : userDevices){
+            if(device1.getSn().equals(device.getSn())){
                 return true;
             }
         }

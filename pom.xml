@@ -11,6 +11,7 @@
     <modules>
         <module>commonutil</module>
         <module>commonmqtt</module>
+        <module>commonentity</module>
     </modules>
 
     <properties>
