@@ -1,5 +1,7 @@
 ywh/common/repository/UserRepository.class
-ywh/common/asf.class
+ywh/common/bean/DeviceBean.class
+ywh/common/bean/RoleBean.class
 ywh/common/entity/UserRole.class
-ywh/common/bean/UserBean.class
 ywh/common/entity/User.class
+ywh/common/entity/Device.class
+ywh/common/bean/UserBean.class

@@ -1,5 +1,7 @@
-/home/moreton/workspace/common/commonentity/src/main/java/ywh/common/asf.java
+/home/moreton/workspace/common/commonentity/src/main/java/ywh/common/bean/RoleBean.java
 /home/moreton/workspace/common/commonentity/src/main/java/ywh/common/entity/User.java
+/home/moreton/workspace/common/commonentity/src/main/java/ywh/common/entity/Device.java
 /home/moreton/workspace/common/commonentity/src/main/java/ywh/common/entity/UserRole.java
+/home/moreton/workspace/common/commonentity/src/main/java/ywh/common/bean/DeviceBean.java
 /home/moreton/workspace/common/commonentity/src/main/java/ywh/common/bean/UserBean.java
 /home/moreton/workspace/common/commonentity/src/main/java/ywh/common/repository/UserRepository.java
