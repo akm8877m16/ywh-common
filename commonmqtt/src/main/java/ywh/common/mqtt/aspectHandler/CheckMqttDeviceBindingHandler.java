@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import ywh.common.bean.MqttPublishBean;
 import ywh.common.entity.Device;
 import ywh.common.entity.User;
 import ywh.common.mqtt.annotation.CheckMqttDeviceBinding;
@@ -54,7 +55,8 @@ public class CheckMqttDeviceBindingHandler {
         Object[] args = joinPoint.getArgs();
 
         Principal principal = (Principal)args[1];
-        String deviceSn = (String)args[0];
+        MqttPublishBean mqttPublishBean = (MqttPublishBean)args[0];
+        String deviceSn = mqttPublishBean.getSn();
         String userName = principal.getName();
 
         LOGGER.info("deviceSn: "+ deviceSn + " userName: " + userName );
