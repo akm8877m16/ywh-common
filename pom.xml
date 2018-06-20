@@ -12,6 +12,7 @@
         <module>commonutil</module>
         <module>commonmqtt</module>
         <module>commonentity</module>
+        <module>commonredis</module>
     </modules>
 
     <properties>
