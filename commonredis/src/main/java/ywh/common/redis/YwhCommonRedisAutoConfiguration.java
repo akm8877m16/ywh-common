@@ -13,6 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ClassUtils;
+import ywh.common.redis.config.RedisConfig;
 
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)

@@ -1,13 +1,19 @@
-package ywh.common.redis;
+package ywh.common.redis.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
-@ConfigurationProperties(prefix = RedisConfig.PREFIX)
+
+@ConfigurationProperties(prefix = "ywh.redis")
 public class RedisConfig {
 
     public static final String PREFIX = "ywh.redis";
     //redisson
-    private String address = "redis://127.0.0.1:6379";
+    private String address;
+
     private String password = "moreton123";
     private int database=15;
     private ClusterServer clusterServer;

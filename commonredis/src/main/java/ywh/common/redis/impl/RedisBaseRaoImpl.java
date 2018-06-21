@@ -1,10 +1,6 @@
 package ywh.common.redis.impl;
 
 import jodd.util.StringUtil;
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
-import ywh.common.redis.RedisConfig;
 
 /**
  * 为了以后扩展，需要遵循twemproxy的使用方式，不出现批量命令，不出现事务等
