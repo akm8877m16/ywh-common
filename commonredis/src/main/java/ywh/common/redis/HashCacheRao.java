@@ -20,7 +20,7 @@ public interface HashCacheRao {
      * @param hashKey
      * @param type
      */
-    public Long hlen(final Object hashKey, final String type);
+    public int hlen(final Object hashKey, final String type);
 
     /**
      * 不管是否存在，都set，用户add, 不设过期时间
@@ -59,7 +59,7 @@ public interface HashCacheRao {
      * @param seconds
      * @return
      */
-    public boolean hsetx(final Object hashKey, final String type, String field, String value, final int seconds);
+    public Boolean hsetx(final Object hashKey, final String type, String field, String value, final int seconds);
 
     /**
 
@@ -70,7 +70,7 @@ public interface HashCacheRao {
      * @param seconds
      * @return
      */
-    public Long hset(final Object hashKey, final String type, String field, String value, final Integer seconds);
+    public String hset(final Object hashKey, final String type, String field, String value, final Integer seconds);
 
     /**
      * 仅仅当key不存在时，才set。用于重设缓存值
@@ -101,7 +101,7 @@ public interface HashCacheRao {
      * @param fields
      * @return
      */
-    public List<String> hmget(final Object hashKey, final String type, List<String> fields);
+    public Map<String,String> hmget(final Object hashKey, final String type, List<String> fields);
 
     /**
      * 当key不存在，或者无field时，返回null
@@ -125,7 +125,7 @@ public interface HashCacheRao {
      * @param value
      * @return
      */
-    public Long hincrbyx(Object hashKey, String type, String field, Long value);
+    public String hincrbyx(Object hashKey, String type, String field, Long value);
 
     public void del(final Object hashKey, final String type);
 

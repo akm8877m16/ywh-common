@@ -1,10 +1,11 @@
-/*
+
 package ywh.common.redis.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ywh.common.redis.GenericInfoRao;
 import ywh.common.redis.HashCacheRao;
+import ywh.common.redis.StringCacheRao;
 import ywh.common.redis.annotation.RedisEntity;
 import ywh.common.redis.annotation.RedisField;
 import ywh.common.redis.annotation.RedisId;
@@ -12,6 +13,7 @@ import ywh.common.util.exception.DescribeException;
 import ywh.common.util.exception.ExceptionEnum;
 import ywh.common.util.json.JsonUtil;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -24,14 +26,19 @@ import java.util.*;
  * @param <T>
  * @param <PK>
  */
-/*
+
 public abstract class AbstractGenericInfoRao<T extends Serializable, PK> implements GenericInfoRao<T, PK> {
 
         protected static final Logger logger = LoggerFactory.getLogger(AbstractGenericInfoRao.class);
 
+        @Resource
         private HashCacheRao hashCacheRao;
+
+        @Resource
         private StringCacheRao stringCacheRao;
+
         private Integer seconds;
+
         private String keyPrefix;
 
         //private String entityName;
@@ -85,7 +92,7 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
          * @return
          * @throws IllegalAccessException
          */
-/*
+
         private Map<String, String> convert2Map(T entity, String[] props, boolean skipMissingProperty, boolean allowNull){
             try {
                 Map<String, String> fieldValues = new HashMap<String, String>();
@@ -172,7 +179,7 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
          * @throws InstantiationException
          * @throws IllegalAccessException
          */
-/*
+
         private T convert2Domain(PK id, Map<String, String> redisMap) {
             if (redisMap == null) {
                 return null;
@@ -508,4 +515,3 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
             this.stringCacheRao = stringCacheRao;
         }
     }
-*/

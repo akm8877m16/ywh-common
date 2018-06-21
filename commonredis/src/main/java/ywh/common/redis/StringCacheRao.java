@@ -3,7 +3,7 @@ package ywh.common.redis;
 /**
  * 可用于存放一个字符串
  */
-public interface StringRao {
+public interface StringCacheRao {
 
     /**
      * 不管是否存在，都set, 不设过期时间

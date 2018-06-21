@@ -1,79 +1,73 @@
-/*
+
 package ywh.common.redis.impl;
 
-import ywh.common.redis.StringRao;
+import org.redisson.api.RBucket;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import ywh.common.redis.StringCacheRao;
+import ywh.common.util.exception.DescribeException;
+import ywh.common.util.exception.ExceptionEnum;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author tianhui
  *
  */
-/*
-public class StringRaoImpl extends RedisBaseRaoImpl implements StringRao {
+
+public class StringRaoImpl extends RedisBaseRaoImpl implements StringCacheRao {
+
+    @Autowired
+    protected RedissonClient redissonClient;
 
     @Override
     public void set(String key, String value) {
-        Jedis jedis = null;
         try {
-            jedis = getJedis();
-            jedis.set(key, value);
+            RBucket<String> bucket = redissonClient.getBucket(key);
+            bucket.set(value);
         } catch (RuntimeException e) {
-            closeBrokenJedis(jedis);
-            jedis = null;
-            throw new RedisRuntimeException("fail to set, key=" + key, e);
+            throw new DescribeException("fail to set, key=" + key+" , "+e, ExceptionEnum.REDIS_ERROR.getCode());
         } finally {
-            closeJedis(jedis);
+
         }
     }
 
     @Override
     public void set(String key, String value, int seconds) {
-        Jedis jedis = null;
         try {
-            jedis = getJedis();
-            jedis.set(key, value);
-            jedis.expire(key, seconds);
+            RBucket<String> bucket = redissonClient.getBucket(key);
+            bucket.set(value,seconds, TimeUnit.SECONDS);
         } catch (RuntimeException e) {
-            closeBrokenJedis(jedis);
-            jedis = null;
-            throw new RedisRuntimeException("fail to set, key=" + key, e);
+            throw new DescribeException("fail to set, key=" + key+" , "+e, ExceptionEnum.REDIS_ERROR.getCode());
         } finally {
-            closeJedis(jedis);
+
         }
     }
 
     @Override
     public String get(String key) {
-        Jedis jedis = null;
+        String res = null;
         try {
-            jedis = getJedis();
-            return jedis.get(key);
+            RBucket<String> bucket = redissonClient.getBucket(key);
+            res = bucket.get();
         } catch (RuntimeException e) {
-            closeBrokenJedis(jedis);
-            jedis = null;
-            throw new RedisRuntimeException("fail to get, key=" + key, e);
+            throw new DescribeException("fail to get, key=" + key+" , "+e, ExceptionEnum.REDIS_ERROR.getCode());
         } finally {
-            closeJedis(jedis);
+           return res;
         }
     }
 
     @Override
     public void del(String key) {
-        Jedis jedis = null;
         try {
-            jedis = getJedis();
-
-            jedis.del(key);
+            RBucket<String> bucket = redissonClient.getBucket(key);
+            bucket.delete();
         } catch (RuntimeException e) {
-            closeBrokenJedis(jedis);
-            jedis = null;
-
-            String msg = "fail to del string, key=" + key;
-            throw new RedisRuntimeException(msg, e);
+            String msg = "fail to del string, key=" + key + " , "+e;
+            throw new DescribeException(msg, ExceptionEnum.REDIS_ERROR.getCode());
         } finally {
-            closeJedis(jedis);
+
         }
     }
 
 }
 
-*/
