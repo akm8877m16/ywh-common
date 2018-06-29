@@ -161,14 +161,14 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
                 }else if(idClass == Integer.class){
                     id = (PK) Integer.valueOf(hashKey);
                 }else{
-                    throw new CloudPlatformRuntimeException("unsupported type ");
+                    throw new DescribeException("unsupported type ",ExceptionEnum.REDIS_ERROR.getCode());
                 }
 
                 T obj = convert2Domain(id, redisMap);
 
                 return obj;
             } catch (Exception e) {
-                throw new RedisRuntimeException("get error", e);
+                throw new DescribeException("get error"+" : "+e,ExceptionEnum.REDIS_ERROR.getCode());
             }
         }
 
@@ -200,7 +200,7 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
                     if(type == String.class){
                         field.set(obj, value);
                     } else if (type == Date.class){
-                        field.set(obj, DateConvert.getConvert().getValue(value));
+                        //field.set(obj, new Date.(value));
                     } else if (type == Long.class || type.getName().equalsIgnoreCase("long")){
                         field.set(obj, Long.valueOf(value));
                     } else if (type == Integer.class || type.getName().equalsIgnoreCase("int")){
@@ -224,8 +224,8 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
                             field.set(obj, JsonUtil.parserJsonArray(value, field.getType().getComponentType()));
                         }
                     } else {
-                        throw new CloudPlatformRuntimeException("unsupported type "
-                                + type + " row data = "+ value);
+                        throw new DescribeException("unsupported type "
+                                + type + " row data = "+ value, ExceptionEnum.REDIS_ERROR.getCode());
                     }
                 }
 
@@ -234,7 +234,7 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
                 }
                 return obj;
             } catch (Exception e) {
-                throw new RedisRuntimeException("get error", e);
+                throw new DescribeException("get error"+" : "+e,ExceptionEnum.REDIS_ERROR.getCode());
             }
 
         }
@@ -260,7 +260,8 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
             String redisFieldName = propNameToRedisFieldName.get(prop);
 
             if(redisFieldName==null){
-                throw new RedisRuntimeException(prop+" doesn't match any field!", entityClass);
+                throw new DescribeException(prop+" doesn't match any field!"+" : "+ entityClass,
+                        ExceptionEnum.REDIS_ERROR.getCode());
             }
 
             if(value==null){
@@ -318,7 +319,7 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
                     }
                     boolean result = hashCacheRao.hmsetx(hashKey, keyPrefix, fieldValues, seconds);
                     if(result && !oldIndex.equals(index)){
-                        if(!StringUtil.isEmpty(oldIndex)) {
+                        if(!oldIndex.isEmpty()) {
                             stringCacheRao.del(oldIndex, getIndexType());
                         }
                         stringCacheRao.set(index, getIndexType(), hashKey, seconds);
