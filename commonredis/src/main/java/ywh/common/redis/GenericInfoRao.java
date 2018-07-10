@@ -1,5 +1,7 @@
 package ywh.common.redis;
 
+import java.util.List;
+
 /**
  * @param <T> info的数据结构
  * @param <PK> 主键
@@ -67,4 +69,6 @@ public interface GenericInfoRao<T, PK> {
     void delUniqueKey(T t);
 
     boolean existKey(T t);
+
+    List<T> findByKeyPattern(String pattern);
 }

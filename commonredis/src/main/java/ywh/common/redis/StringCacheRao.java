@@ -28,6 +28,14 @@ public interface StringCacheRao {
      */
     public String get(final Object stringKey, final String type);
 
+
+    /**
+     * 如果知道具体的key,可以直接获取对应值
+     * @param key
+     * @return
+     */
+    public String get(final String key);
+
     /**
      * 不敢key是否存在，都删除
      * @param stringKey

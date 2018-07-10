@@ -33,8 +33,6 @@ public class StringRaoImpl extends RedisBaseRaoImpl implements StringCacheRao {
             bucket.set(value);
         } catch (RuntimeException e) {
             throw new DescribeException("fail to set, key=" + key+" , "+e, ExceptionEnum.REDIS_ERROR.getCode());
-        } finally {
-
         }
     }
 
@@ -44,11 +42,10 @@ public class StringRaoImpl extends RedisBaseRaoImpl implements StringCacheRao {
             bucket.set(value,seconds, TimeUnit.SECONDS);
         } catch (RuntimeException e) {
             throw new DescribeException("fail to set, key=" + key+" , "+e, ExceptionEnum.REDIS_ERROR.getCode());
-        } finally {
-
         }
     }
 
+    @Override
     public String get(String key) {
         String res = null;
         try {
@@ -268,5 +265,12 @@ public class StringRaoImpl extends RedisBaseRaoImpl implements StringCacheRao {
         }
     }
 
+    public RedissonClient getRedissonClient() {
+        return redissonClient;
+    }
+
+    public void setRedissonClient(RedissonClient redissonClient) {
+        this.redissonClient = redissonClient;
+    }
 }
 

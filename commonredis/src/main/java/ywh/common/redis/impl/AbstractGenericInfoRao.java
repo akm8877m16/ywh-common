@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ywh.common.redis.GenericInfoRao;
 import ywh.common.redis.HashCacheRao;
+import ywh.common.redis.KeysRao;
 import ywh.common.redis.StringCacheRao;
 import ywh.common.redis.annotation.RedisEntity;
 import ywh.common.redis.annotation.RedisField;
@@ -31,11 +32,11 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
 
         protected static final Logger logger = LoggerFactory.getLogger(AbstractGenericInfoRao.class);
 
-        @Resource
         private HashCacheRao hashCacheRao;
 
-        @Resource
         private StringCacheRao stringCacheRao;
+
+        private KeysRao keysRao;
 
         private Integer seconds;
 
@@ -255,6 +256,39 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
         }
 
         @Override
+        public List<T> findByKeyPattern(String pattern){
+            List<T> result = new ArrayList<T>();
+            Iterable<String> keys = keysRao.getKeys(pattern);
+            for(String key : keys){
+                String hashKey = stringCacheRao.get(key);
+                try{
+                    if(hashKey == null){
+                        continue;
+                    }
+                    Map<String, String> redisMap = hashCacheRao.hgetall(hashKey, keyPrefix);
+
+                    PK id = null;
+                    if(idClass == String.class){
+                        id = (PK) hashKey;
+                    }else if(idClass == Long.class){
+                        id = (PK) Long.valueOf(hashKey);
+                    }else if(idClass == Integer.class){
+                        id = (PK) Integer.valueOf(hashKey);
+                    }else{
+                        throw new DescribeException("unsupported type ",ExceptionEnum.REDIS_ERROR.getCode());
+                    }
+
+                    T obj = convert2Domain(id, redisMap);
+                    result.add(obj);
+                } catch (Exception e) {
+                    throw new DescribeException("get error"+" : "+e,ExceptionEnum.REDIS_ERROR.getCode());
+                }
+            }
+            return result;
+        }
+
+
+        @Override
         public Boolean update(PK id, String prop, String value){//TODO:想清掉一些null
             prop = prop.toLowerCase();
             String redisFieldName = propNameToRedisFieldName.get(prop);
@@ -326,10 +360,10 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
                     }
                     return result;
                 } else {
-                    throw new RedisRuntimeException("value of "+props+" cann't all be null!, t=" + JsonUtil.getJsonFromObject(entity));
+                    throw new DescribeException("value of "+props+" cann't all be null!, t=" + JsonUtil.getJsonFromObject(entity), ExceptionEnum.REDIS_ERROR.getCode());
                 }
             } catch (Exception e) {
-                throw new RedisRuntimeException("update error ", e);
+                throw new DescribeException("update error "+ " , "+e, ExceptionEnum.REDIS_ERROR.getCode());
             }
 
         }
@@ -340,7 +374,7 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
             String redisFieldName = propNameToRedisFieldName.get(prop);
 
             if(redisFieldName==null){
-                throw new RedisRuntimeException(prop+" doesn't match any field!", entityClass);
+                throw new DescribeException(prop+" doesn't match any field!" + " "+ entityClass,ExceptionEnum.REDIS_ERROR.getCode());
             }
 
             Field field = redisFieldNameToField.get(redisFieldName);
@@ -359,7 +393,7 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
                     return null;
                 }
             } else {
-                throw new RedisRuntimeException("value of "+prop+" cann't be null!", entityClass);
+                throw new DescribeException("value of "+prop+" cann't be null!"+" , "+entityClass, ExceptionEnum.REDIS_ERROR.getCode());
             }
         }
 
@@ -374,7 +408,7 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
                 String hashKey = String.valueOf(idRedisField.get(entity));
                 return hashCacheRao.existKey(hashKey, keyPrefix);
             } catch (Exception e) {
-                throw new RedisRuntimeException("check key error", e);
+                throw new DescribeException("check key error"+" , "+ e, ExceptionEnum.REDIS_ERROR.getCode());
             }
         }
 
@@ -515,4 +549,12 @@ public abstract class AbstractGenericInfoRao<T extends Serializable, PK> impleme
         public void setStringCacheRao(StringCacheRao stringCacheRao) {
             this.stringCacheRao = stringCacheRao;
         }
-    }
+
+        public KeysRao getKeysRao() {
+            return keysRao;
+        }
+
+        public void setKeysRao(KeysRao keysRao) {
+            this.keysRao = keysRao;
+        }
+}

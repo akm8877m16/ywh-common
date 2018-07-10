@@ -200,9 +200,8 @@ public class HashCacheRaoImpl extends RedisBaseRaoImpl implements HashCacheRao {
         } catch (RuntimeException e) {
             throw new DescribeException("fail to hincreby, key=" + key + ", fv=" + fieldValues + " , "+e, ExceptionEnum.REDIS_ERROR.getCode());
         } finally {
-
+            return newValues;
         }
-        return newValues;
     }
 
     @Override
@@ -339,5 +338,11 @@ public class HashCacheRaoImpl extends RedisBaseRaoImpl implements HashCacheRao {
         }
     }
 
+    public RedissonClient getRedissonClient() {
+        return redissonClient;
+    }
 
+    public void setRedissonClient(RedissonClient redissonClient) {
+        this.redissonClient = redissonClient;
+    }
 }
