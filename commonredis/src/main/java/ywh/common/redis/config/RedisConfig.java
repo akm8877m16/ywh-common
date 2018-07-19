@@ -14,7 +14,7 @@ public class RedisConfig {
     //redisson
     private String address;
 
-    private String password = "moreton123";
+    private String password;
     private int database=15;
     private ClusterServer clusterServer;
     private String codec = "org.redisson.codec.JsonJacksonCodec";

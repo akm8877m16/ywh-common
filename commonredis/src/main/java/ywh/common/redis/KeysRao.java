@@ -8,6 +8,6 @@ public interface KeysRao {
 
     public Iterable<String> getKeys(final String pattern);
 
-    public Long keysCount(final String pattern);
+    public Integer keysCount(final String pattern);
 
 }

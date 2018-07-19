@@ -31,23 +31,23 @@ public class DeviceRaoImplTest {
         Device device1 = new Device("test", 111111L, 3, "asfd2sdfa", "asdfw9099");
         device1.setOpenStatus(true);
         device1.setUpdateTime(123131231L);
-        device1.setId("1");
+        device1.setId(1l);
 
         Device device2 = new Device("test", 111111L, 3, "asfad2sdfa", "asdfw9099");
         device2.setOpenStatus(true);
         device2.setUpdateTime(123131231L);
-        device2.setId("2");
+        device2.setId(2l);
 
         Device device3 = new Device("test", 111111L, 3, "asf0d2sdfa", "asdfw9099");
         device3.setOpenStatus(true);
         device3.setUpdateTime(123131231L);
-        device3.setId("3");
+        device3.setId(3l);
 
         deviceRao.add(device1);
         deviceRao.add(device2);
         deviceRao.add(device3);
 
-        Device result = deviceRao.get("1");
+        Device result = deviceRao.get(1l);
         logger.info(result.toString());
         System.out.println(result.toString());
 
@@ -70,6 +70,16 @@ public class DeviceRaoImplTest {
 
     }
 
+    @Test
+    public void updateDevice(){
+        Device device2 = new Device("testupdate", 111111L, 3, "asfad2sdfa", "asdfw9099");
+        device2.setOpenStatus(false);
+        device2.setUpdateTime(123131231L);
+        device2.setId(2l);
+        deviceRao.update(device2);
+        Device result = deviceRao.getUnique(device2);
+        System.out.println(result.toString());
+    }
 
 
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Device implements Serializable {
 
     @RedisId
-    private String id;
+    private Long id;
 
     @RedisField
     private String name;
@@ -96,11 +96,11 @@ public class Device implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

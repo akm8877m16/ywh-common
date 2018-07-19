@@ -18,10 +18,10 @@ public class KeysRaoImpl implements KeysRao {
     }
 
     @Override
-    public Long keysCount(String pattern){
+    public Integer keysCount(String pattern){
         RKeys keys = redissonClient.getKeys();
         Iterable<String> foundedKeys = keys.getKeysByPattern(pattern);
-        Long count = 0L;
+        Integer count = 0;
         for(String key:foundedKeys){
             count++;
         }
