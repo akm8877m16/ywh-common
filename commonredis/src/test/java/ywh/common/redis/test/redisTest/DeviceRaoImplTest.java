@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import ywh.common.redis.globalIdGenerator.IdGenerator;
 import ywh.common.redis.impl.HashCacheRaoImpl;
 import ywh.common.redis.test.YwhCommonRedisTestApplication;
 import ywh.common.redis.test.redisTest.domain.Device;
@@ -25,6 +26,9 @@ public class DeviceRaoImplTest {
 
     @Resource
     private DeviceRaoImpl deviceRao;
+
+    @Resource
+    private IdGenerator idGenerator;
 
     @Test
     public void addDevice() {
@@ -81,6 +85,12 @@ public class DeviceRaoImplTest {
         System.out.println(result.toString());
     }
 
+    @Test
+    public void idGeneratorTest(){
+        long id = idGenerator.generatNewId();
+        System.out.println(id);
+
+    }
 
 
 }
